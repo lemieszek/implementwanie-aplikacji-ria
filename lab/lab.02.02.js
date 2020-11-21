@@ -1,13 +1,12 @@
-class Samochod {
-  constructor(marka, cena, moc) {
-    if (typeof marka !== 'string' || isNaN(cena) || isNaN(moc)) {
-      throw Error('niepoprane parametry samochodu');
-    }
-    this.marka = marka;
-    this.cena = cena;
-    this.moc = moc;
+function Samochod(marka, cena, moc) {
+  if (typeof marka !== 'string' || isNaN(cena) || isNaN(moc)) {
+    throw Error('niepoprane parametry samochodu');
   }
+  this.marka = marka;
+  this.cena = cena;
+  this.moc = moc;
 }
+
 Samochod.prototype.zwiekszMoc = function (value) {
   if (isNaN(value) || value < 0) {
     throw Error(`niepoprawna wartość: ${value}, oczekiwana wartość liczbowa większa od 0`);
