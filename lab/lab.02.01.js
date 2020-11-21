@@ -16,7 +16,7 @@ console.log(car);
 try {
   car.zwiekszMoc('duzo');
   car.zwiekszMoc(-20);
-} catch {}
+} catch (err) {}
 car.zwiekszMoc(20);
 /* ------------- 4 ------------- */
 console.log(car);
