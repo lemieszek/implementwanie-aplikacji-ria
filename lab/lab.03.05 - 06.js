@@ -47,19 +47,19 @@ console.log(marek.przedstaw());
 try {
   marek.age = 'a';
 } catch (e) {
-  console.log(e);
+  console.log(e.message);
 }
 console.log(marek.przedstaw());
 try {
   marek.age = -1;
 } catch (e) {
-  console.log(e);
+  console.log(e.message);
 }
 console.log(marek.przedstaw());
 try {
   marek.age = 16;
 } catch (e) {
-  console.log(e);
+  console.log(e.message);
 }
 console.log(marek.przedstaw());
 
