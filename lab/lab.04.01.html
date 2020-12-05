@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lab 4: Czwiczenie 1</title>
+    <link rel="stylesheet" href="https://unpkg.com/sakura.css/css/sakura.css" type="text/css" />
+  </head>
+  <body>
+    <ul>
+      <li>Polska</li>
+      <li>Niemcy</li>
+      <li>Czechy</li>
+    </ul>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+
+    <!-- ZADANIE -->
+    <script type="text/javascript">
+      $(document).ready(() => {
+        $('li').each(function (index) {
+          $(this).prepend(`${index + 1} `);
+        });
+      });
+    </script>
+    <!-- END -->
+  </body>
+</html>
