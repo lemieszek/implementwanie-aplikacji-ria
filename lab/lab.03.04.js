@@ -9,7 +9,7 @@ class Osoba {
     return this._name;
   }
   set name(value) {
-    this._name = this._formatujImie(value);
+    this._name = Osoba.formatujImie(value);
   }
   get age() {
     return this._age;
@@ -20,7 +20,7 @@ class Osoba {
   przedstaw() {
     return `Jestem ${this.name}, mam ${this.age} ${choosePolishNounForm(this.age, 'lat', 'lat', 'lata')}`;
   }
-  _formatujImie(value) {
+  static formatujImie(value) {
     const [firstLetter, ...rest] = value;
     return `${(firstLetter || '').toUpperCase()}${rest.join('').toLowerCase()}`;
   }
