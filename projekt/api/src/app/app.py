@@ -1,4 +1,5 @@
 from flask import Flask, jsonify, request
+import psycopg2
 
 
 app = Flask(__name__)
@@ -22,6 +23,19 @@ class CarRepository:
     def create_user(self, data):
         cars.append(data)
         return data
+
+
+class CarsRepositoryPostgres:
+    def __init__(self):
+        self.connection = psycopg2.connect(user='postgres', password='postgres', host='postgres', port='5432', database='db_name')
+        self.cursor = self.connection.cursor()
+
+    def get_all_cars(self):
+        sql = 'SELECT * FROM cars'
+        self.cursor.execute(sql)
+        # Not sure what data type is returned from fetchall() list of tuples ???
+        records = self.cursor.fetchall()
+        return records
 
 
 @app.route('/cars', methods=['GET'])
