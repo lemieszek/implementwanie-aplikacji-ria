@@ -48,7 +48,9 @@ app.get('/api/test', (req, res) => {
 
 // Get all to do list cars
 app.get('/api/cars', async (req, res) => {
-  const cars = await pgClient.query('SELECT * FROM cars');
+  const available = req.query.available;
+  const where = available ? 'where available = true' : '';
+  const cars = await pgClient.query(`SELECT * FROM cars ${where}`);
   res.status(200).send(JSON.stringify(cars.rows));
 });
 

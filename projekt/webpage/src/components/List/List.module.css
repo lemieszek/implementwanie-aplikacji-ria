@@ -32,3 +32,14 @@
   margin: 4rem;
   color: tomato;
 }
+
+.filters {
+  display: flex;
+  align-items: center;
+}
+.filters > label {
+  margin: 0 0 0.4rem 0;
+  padding-left: 0.3rem;
+  user-select: none;
+  cursor: pointer;
+}
