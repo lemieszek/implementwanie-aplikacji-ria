@@ -1,25 +1,14 @@
-version: '3.7'
+version: '3'
 
 services:
-
   postgres:
-    image: postgres
+    image: postgres:latest
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_DB=postgres
       - POSTGRES_PASSWORD=postgres
     ports:
-    - 54321:5432
-
-  api:
-    container_name: api
-    build:
-      context: ./api
-      dockerfile: Dockerfile
-    ports:
-      - 8000:8000
-    command: "flask run --host=0.0.0.0 --port=8000"
-
+      - '5432:5432'
   webpage:
     container_name: webpage
     build:
@@ -29,6 +18,24 @@ services:
       - './webpage:/app'
       - '/app/node_modules'
     ports:
-      - 3001:3000
+      - 3005:3005
     environment:
       - CHOKIDAR_USEPOLLING=true
+      - REACT_APP_API_URL=http://localhost:3001/api
+  api:
+    build:
+      context: ./server
+      dockerfile: Dockerfile.dev
+    ports:
+      - '3001:3001'
+    restart: on-failure
+    container_name: api
+    volumes:
+      - /app/node_modules # Inside the container, don't try to override this folder, just leave as is
+      - ./server:/app # Look at the server directory and copy everything into the app folder in the container
+    environment:
+      - PGUSER=postgres
+      - PGHOST=postgres
+      - PGDATABASE=postgres
+      - PGPASSWORD=postgres
+      - PGPORT=5432
