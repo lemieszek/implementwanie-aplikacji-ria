@@ -7,7 +7,7 @@ export const Edit = () => {
   const params = useParams();
 
   React.useEffect(() => {
-    client(`cars/${params.id}`).then((data) => {
+    client(`car/${params.id}`).then((data) => {
       setCar(data);
     });
   }, [params.id]);
@@ -15,27 +15,30 @@ export const Edit = () => {
   const [isSubmitting, setIsSubmitting] = React.useState(false);
   const history = useHistory();
 
-  const handleSubmit = React.useCallback((event) => {
-    setIsSubmitting(true);
-    event.preventDefault();
-    const {
-      name: { value: name },
-      description: { value: description },
-      available: { checked: available },
-      price: { value: price },
-    } = event.target;
-    client(`cars/${params.id}`, {
-      method: 'PUT',
-      body: {
-        name,
-        description,
-        available,
-        price: Number(price),
-      },
-    }).then(({ id }) => {
-      history.push(`/${id}`);
-    });
-  }, []);
+  const handleSubmit = React.useCallback(
+    (event) => {
+      setIsSubmitting(true);
+      event.preventDefault();
+      const {
+        name: { value: name },
+        description: { value: description },
+        available: { checked: available },
+        price: { value: price },
+      } = event.target;
+      client(`car/${params.id}`, {
+        method: 'PUT',
+        body: {
+          name,
+          description,
+          available,
+          price: Number(price),
+        },
+      }).then(({ id }) => {
+        history.push(`/${id}`);
+      });
+    },
+    [history, params.id]
+  );
 
   if (car) {
     return (

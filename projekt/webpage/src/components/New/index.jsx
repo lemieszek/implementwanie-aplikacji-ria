@@ -5,27 +5,30 @@ import { useHistory } from 'react-router-dom';
 export const New = () => {
   const [isSubmitting, setIsSubmitting] = React.useState(false);
   const history = useHistory();
-  const handleSubmit = React.useCallback((event) => {
-    setIsSubmitting(true);
-    event.preventDefault();
-    const {
-      name: { value: name },
-      description: { value: description },
-      available: { checked: available },
-      price: { value: price },
-    } = event.target;
-    client('cars', {
-      method: 'POST',
-      body: {
-        name,
-        description,
-        available,
-        price: Number(price),
-      },
-    }).then(({ id }) => {
-      history.push('/' + id);
-    });
-  }, []);
+  const handleSubmit = React.useCallback(
+    (event) => {
+      setIsSubmitting(true);
+      event.preventDefault();
+      const {
+        name: { value: name },
+        description: { value: description },
+        available: { checked: available },
+        price: { value: price },
+      } = event.target;
+      client('car', {
+        method: 'POST',
+        body: {
+          name,
+          description,
+          available,
+          price: Number(price),
+        },
+      }).then(({ id }) => {
+        history.push('/' + id);
+      });
+    },
+    [history]
+  );
 
   return (
     <form onSubmit={handleSubmit}>

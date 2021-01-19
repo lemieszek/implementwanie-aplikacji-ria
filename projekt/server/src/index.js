@@ -41,12 +41,6 @@ pgClient
   )
   .catch((err) => console.log(err));
 
-// Express route handlers
-app.get('/api/test', (req, res) => {
-  res.send({ message: 'Working!' });
-});
-
-// Get all to do list cars
 app.get('/api/cars', async (req, res) => {
   const available = req.query.available;
   const where = available ? 'where available = true' : '';
@@ -54,8 +48,7 @@ app.get('/api/cars', async (req, res) => {
   res.status(200).send(JSON.stringify(cars.rows));
 });
 
-// Get a single todo car
-app.get('/api/cars/:id', async (req, res) => {
+app.get('/api/car/:id', async (req, res) => {
   const id = req.params.id;
 
   const cars = await pgClient
@@ -69,8 +62,7 @@ app.get('/api/cars/:id', async (req, res) => {
   res.status(200).send(JSON.stringify(cars.rows[0]));
 });
 
-// Create a todo car
-app.post('/api/cars', async (req, res) => {
+app.post('/api/car', async (req, res) => {
   const { name, description, available = true, price } = req.body;
   const id = uuid();
   const cars = await pgClient
@@ -87,8 +79,7 @@ app.post('/api/cars', async (req, res) => {
   res.status(201).send(JSON.stringify({ id }));
 });
 
-// Update a todo car
-app.put('/api/cars/:id', async (req, res) => {
+app.put('/api/car/:id', async (req, res) => {
   const id = req.params.id;
   const { name, description, available, price } = req.body;
 
@@ -108,8 +99,7 @@ app.put('/api/cars/:id', async (req, res) => {
   res.status(200).send(JSON.stringify({ id }));
 });
 
-// Delete a todo car
-app.delete('/api/cars/:id', async (req, res) => {
+app.delete('/api/car/:id', async (req, res) => {
   const id = req.params.id;
 
   await pgClient.query('DELETE FROM cars WHERE id = $1', [id]).catch((e) => {
